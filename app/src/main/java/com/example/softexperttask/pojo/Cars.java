@@ -1,5 +1,7 @@
 package com.example.softexperttask.pojo;
 
+import javax.inject.Inject;
+
 public class Cars {
     private int id;
 
@@ -49,5 +51,8 @@ public class Cars {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+  @Inject
+    public Cars() {
     }
 }

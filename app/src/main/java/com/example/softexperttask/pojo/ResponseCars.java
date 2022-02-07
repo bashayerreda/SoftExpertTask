@@ -4,9 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ResponseCars {
     @SerializedName("data")
-    private List<Cars> cars;
+    @Inject
+    List<Cars> cars;
     private int status;
 
     public List<Cars> getCars() {
@@ -25,6 +28,7 @@ public class ResponseCars {
     }
 
     public void setStatus(int status) {
+
         this.status = status;
     }
 }

@@ -19,7 +19,7 @@ import com.example.softexperttask.pojo.Cars;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.PostViewHolder>{
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.PostViewHolder> {
     List<Cars> cars;
     actionInterface actions;
 
@@ -27,10 +27,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.PostViewHolder
         this.actions = actions;
         this.cars = new ArrayList<>();
     }
-    public void setData(List<Cars> cars){
+
+    public void setData(List<Cars> cars) {
         this.cars = cars;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public DataAdapter.PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,15 +41,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.PostViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DataAdapter.PostViewHolder holder, int position) {
-        holder.brandName.setText(cars.get(position).getBrand());
-        holder.constYear.setText(cars.get(position).getConstractionYear());
-        holder.isUsed.setText(String.valueOf(cars.get(position).isUsed()));
-        Glide
-                .with(holder.itemView)
-                .load(cars.get(position).getImageUrl())
-                .centerCrop()
-                .into(holder.imageView);
-        if(position == cars.size() - 1)
+        holder.onBind(cars.get(position));
+        if (position == cars.size() - 1)
             actions.loadingNext();
     }
 
@@ -58,13 +53,26 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.PostViewHolder
 
     public class PostViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView brandName , isUsed, constYear ;
+        TextView brandName, isUsed, constYear;
+
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.img_car);
             brandName = itemView.findViewById(R.id.brand_name);
             isUsed = itemView.findViewById(R.id.is_used);
             constYear = itemView.findViewById(R.id.const_year);
+
+        }
+
+        void onBind(Cars car) {
+            brandName.setText(car.getBrand());
+            constYear.setText(car.getConstractionYear());
+            isUsed.setText(String.valueOf(car.isUsed()));
+            Glide
+                    .with(itemView)
+                    .load(car.getImageUrl())
+                    .centerCrop()
+                    .into(imageView);
 
         }
     }
